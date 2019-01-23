@@ -1,0 +1,25 @@
+{
+  "name": "socket-server",
+  "version": "1.0.0",
+  "description": "Socket Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenchi77/socket-server.git"
+  },
+  "keywords": [
+    "socket"
+  ],
+  "author": "Charlie Chen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenchi77/socket-server/issues"
+  },
+  "homepage": "https://github.com/chenchi77/socket-server#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
