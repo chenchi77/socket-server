@@ -4,7 +4,11 @@
   "description": "Socket Server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "open": "heroku open",
+    "logs": "heroku logs --tail",
+    "deploy": "git push heroku master",
+    "start": "node app.js",
+    "local": "LOCAL=TRUE node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
   },
   "homepage": "https://github.com/chenchi77/socket-server#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   }
 }
