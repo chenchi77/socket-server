@@ -29,10 +29,11 @@ io.on('connection', function(socket){
         }
     });
 
-    socket.on('join', function(roomName, callback){
-        var socketIds = socketIdsInRoom(roomName);
+    socket.on('join', function(roomName, callback) {
         socket.join(roomName);
         socket.room = roomName;
+        var socketIds = socketIdsInRoom(roomName);
+        console.log('returning socket ids: ', socketIds)
         callback(socketIds);
     });
 
