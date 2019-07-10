@@ -33,7 +33,14 @@ io.on('connection', function(socket){
         socket.join(roomName);
         socket.room = roomName;
         var socketIds = socketIdsInRoom(roomName);
-        console.log('returning socket ids: ', socketIds)
+        if (socketIds.length == 2) {
+            const joiningSocketIndex = socketIds.indexOf(socket.id);
+            const waitingSocketIndex = (joiningSocketIndex == 0) ? 1 : 0;
+            const joiningSocketId = socketIds[joiningSocketIndex];
+            const waitingSocketId = socketIds[waitingSocketIndex];
+            io.sockets.connected[joiningSocketId].emit('peerSocketId', waitingSocketId);
+            io.sockets.connected[waitingSocketId].emit('peerSocketId', joiningSocketId);
+        }
         callback(socketIds);
     });
 
