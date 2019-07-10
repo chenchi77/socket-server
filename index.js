@@ -30,19 +30,20 @@ io.on('connection', function(socket){
     });
 
     socket.on('join', function(roomName, callback){
-        console.log('join', roomName);
         var socketIds = socketIdsInRoom(roomName);
-        console.log('socketIds', socketIds);
         socket.join(roomName);
         socket.room = roomName;
-        console.log('join finished');
         callback(socketIds);
     });
 
-    socket.on('exchange', function(data){
-        data.from = socket.id;
-        var to = io.sockets.connected[data.to];
-        to.emit('exchange', data);
+    socket.on('exchange', function(data, callback){
+        try {
+            data.from = socket.id;
+            var to = io.sockets.connected[data.to];
+            to.emit('exchange', data);
+        } catch {
+            callback({ error: 'something went wrong' });
+        }
     });
 });
 
