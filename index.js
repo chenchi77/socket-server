@@ -54,8 +54,9 @@ io.on('connection', function(socket){
             data.from = socket.id;
             var to = io.sockets.connected[data.to];
             to.emit('exchange', data);
-        } catch {
+        } catch(e) {
             console.log('Error => something went wrong');
+            console.log(JSON.stringify(e));
         }
     });
 });
