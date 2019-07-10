@@ -38,14 +38,20 @@ io.on('connection', function(socket){
             const waitingSocketIndex = (joiningSocketIndex == 0) ? 1 : 0;
             const joiningSocketId = socketIds[joiningSocketIndex];
             const waitingSocketId = socketIds[waitingSocketIndex];
-            io.sockets.connected[joiningSocketId].emit('peerSocketId', {
-                socketId: waitingSocketId,
-                role: 'offer',
-            });
-            io.sockets.connected[waitingSocketId].emit('peerSocketId', {
-                socketId: joiningSocketId,
-                role: 'answer',
-            });
+            io.sockets.connected[joiningSocketId].emit(
+                'peerSocketId', 
+                {
+                    peerSocketId: waitingSocketId,
+                    role: 'offer',
+                }
+            );
+            io.sockets.connected[waitingSocketId].emit(
+                'peerSocketId',
+                {
+                    peerSocketId: joiningSocketId,
+                    role: 'answer',
+                }
+            );
         }
     });
 
