@@ -35,10 +35,10 @@ io.on('connection', function(socket){
         console.log('join', roomName);
         var socketIds = socketIdsInRoom(roomName);
         console.log('socketIds', socketIds);
-        callback(socketIds);
         socket.join(roomName);
         socket.room = roomName;
         console.log('join finished');
+        callback(socketIds);
     });
 
     socket.on('exchange', function(data){
