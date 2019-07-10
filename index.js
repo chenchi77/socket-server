@@ -36,13 +36,13 @@ io.on('connection', function(socket){
         callback(socketIds);
     });
 
-    socket.on('exchange', function(data, callback){
+    socket.on('exchange', function(data){
         try {
             data.from = socket.id;
             var to = io.sockets.connected[data.to];
             to.emit('exchange', data);
         } catch {
-            callback({ error: 'something went wrong' });
+            console.log('Error => something went wrong');
         }
     });
 });
