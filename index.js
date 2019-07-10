@@ -29,7 +29,7 @@ io.on('connection', function(socket){
         }
     });
 
-    socket.on('join', function(roomName, callback) {
+    socket.on('join', function(roomName) {
         socket.join(roomName);
         socket.room = roomName;
         var socketIds = socketIdsInRoom(roomName);
@@ -41,7 +41,6 @@ io.on('connection', function(socket){
             io.sockets.connected[joiningSocketId].emit('peerSocketId', waitingSocketId);
             io.sockets.connected[waitingSocketId].emit('peerSocketId', joiningSocketId);
         }
-        callback(socketIds);
     });
 
     socket.on('exchange', function(data){
