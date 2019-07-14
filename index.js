@@ -40,7 +40,7 @@ io.on('connection', function(socket){
         var socketIds = socketIdsInRoom('lobby');
         for (let sid of socketIds) {
             if (!(sid in socketDict)) {
-                socketDict[sid] = false;
+                socketDict[sid.toString()] = false;
             }
         }
         // Clean socketDict
