@@ -1,3 +1,5 @@
+// Socket server for both match and chat features
+// ** Has to be running on two seperate servers **
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -14,19 +16,60 @@ function socketIdsInRoom(roomName) {
     }
     var collection = [];
     for (var key in room.sockets) {
-        console.log(key);
         collection.push(key);
     }
     return collection;
 }
-
+// For concurrency issues
+let socketDict = {};
 io.on('connection', function(socket){
     socket.on('disconnect', function(){
         if (socket.room) {
+            // Chat socket
             var room = socket.room;
             io.to(room).emit('leave', socket.id);
             socket.leave(room);
+        } else if (socket.lobbyPaired) {
+            delete socketDict[socket.id];
         }
+    });
+
+    socket.on('match', function() {
+        socket.join('lobby');
+        // If someone is waiting
+        var socketIds = socketIdsInRoom('lobby');
+        for (let sid of socketIds) {
+            if (!(sid in socketDict)) {
+                socketDict[sid] = false;
+            }
+        }
+        let availSocketList = [];
+        for (let sid in socketDict) {
+            if (!socketDict[sid] && availSocketList.length < 2) {
+                availSocketList.push(sid);
+                if (availSocketList.length == 2) break;
+            }
+        }
+        if (availSocketList.length == 2) {
+            const roomName = `room-${new Date().getTime()}`;
+            const socketId1 = availSocketList[0];
+            const socketId2 = availSocketList[1];
+            socketDict[socketId1] = true;
+            socketDict[socketId2] = true;
+            io.sockets.connected[socketId1].emit(
+                'paired',
+                {
+                    roomName,
+                }
+            )
+            io.sockets.connected[socketId2].emit(
+                'paired',
+                {
+                    roomName,
+                }
+            )
+        }
+        
     });
 
     socket.on('join', function(roomName) {
