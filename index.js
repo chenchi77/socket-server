@@ -29,13 +29,14 @@ io.on('connection', function(socket){
             var room = socket.room;
             io.to(room).emit('leave', socket.id);
             socket.leave(room);
-        } else if (socket.lobbyPaired) {
+        } else if (socket.lobbyPairing) {
             delete socketDict[socket.id];
         }
     });
 
     socket.on('match', function() {
         socket.join('lobby');
+        socket.lobbyPairing = true;
         // If someone is waiting
         var socketIds = socketIdsInRoom('lobby');
         for (let sid of socketIds) {
