@@ -83,7 +83,7 @@ io.on('connection', function(socket){
                 socketDict[socketId1] = true;
                 socketDict[socketId2] = true;
             } catch {
-                console.log('Error: fast refreshing page...');
+                console.log('User canceling...', socketDict);
             }
         }
     });
