@@ -67,20 +67,24 @@ io.on('connection', function(socket){
                 delete socketDict[socketId2];
                 return;
             }
-            socketDict[socketId1] = true;
-            socketDict[socketId2] = true;
-            io.sockets.connected[socketId1].emit(
-                'paired',
-                {
-                    roomName,
-                }
-            )
-            io.sockets.connected[socketId2].emit(
-                'paired',
-                {
-                    roomName,
-                }
-            )
+            try {
+                io.sockets.connected[socketId1].emit(
+                    'paired',
+                    {
+                        roomName,
+                    }
+                )
+                io.sockets.connected[socketId2].emit(
+                    'paired',
+                    {
+                        roomName,
+                    }
+                )
+                socketDict[socketId1] = true;
+                socketDict[socketId2] = true;
+            } catch {
+                console.log('Error: fast refreshing page...');
+            }
         }
     });
 
