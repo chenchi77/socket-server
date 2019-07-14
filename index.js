@@ -59,11 +59,11 @@ io.on('connection', function(socket){
             const roomName = `room-${new Date().getTime()}`;
             const socketId1 = availSocketList[0];
             const socketId2 = availSocketList[1];
-            if (typeof(io.sockets.connected[socketId1]) === undefined) {
+            if (typeof io.sockets.connected[socketId1] === undefined) {
                 delete socketDict[socketId1];
                 return;
             }
-            if (typeof(io.sockets.connected[socketId2]) === undefined) {
+            if (typeof io.sockets.connected[socketId2]  === undefined) {
                 delete socketDict[socketId2];
                 return;
             }
