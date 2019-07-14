@@ -45,7 +45,7 @@ io.on('connection', function(socket){
         }
         // Clean socketDict
         for (let sid in socketDict) {
-            if (typeof io.sockets.sockets[sid] === undefined) delete socketDict[sid];
+            if (typeof io.sockets.connected[sid] === undefined) delete socketDict[sid];
         }
 
         let availSocketList = [];
@@ -83,7 +83,7 @@ io.on('connection', function(socket){
                 socketDict[socketId1] = true;
                 socketDict[socketId2] = true;
             } catch {
-                console.log('User canceling...', socketDict);
+                console.log('User canceled', socketDict);
             }
         }
     });
