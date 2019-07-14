@@ -80,8 +80,8 @@ io.on('connection', function(socket){
                         roomName,
                     }
                 )
-                socketDict[socketId1] = true;
-                socketDict[socketId2] = true;
+                delete socketDict[socketId1];
+                delete socketDict[socketId2];
             } catch {
                 console.log('User canceled', socketDict);
             }
