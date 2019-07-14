@@ -43,6 +43,11 @@ io.on('connection', function(socket){
                 socketDict[sid] = false;
             }
         }
+        // Clean socketDict
+        for (let sid in socketDict) {
+            if (typeof io.sockets.sockets[sid] === undefined) delete socketDict[sid];
+        }
+
         let availSocketList = [];
         for (let sid in socketDict) {
             if (!socketDict[sid] && availSocketList.length < 2) {
