@@ -37,12 +37,13 @@ io.on('connection', function(socket){
     socket.on('match', function(data) {
         socket.join('lobby');
         socket.lobbyPairing = true;
-        console.log(data);
+        if (typeof data.topic === undefined) return;
+        if (data.topic.length) return;
         // If someone is waiting
         var socketIds = socketIdsInRoom('lobby');
         for (let sid of socketIds) {
             if (!(sid in socketDict)) {
-                socketDict[sid.toString()] = false;
+                socketDict[sid.toString()] = data.topic[0];
             }
         }
         // Clean socketDict
@@ -52,7 +53,7 @@ io.on('connection', function(socket){
 
         let availSocketList = [];
         for (let sid in socketDict) {
-            if (!socketDict[sid] && availSocketList.length < 2) {
+            if (availSocketList.length < 2) {
                 availSocketList.push(sid);
                 if (availSocketList.length == 2) break;
             }
@@ -74,12 +75,14 @@ io.on('connection', function(socket){
                     'paired',
                     {
                         roomName,
+                        peerTopic: socketDict[socketId2],
                     }
                 )
                 io.sockets.connected[socketId2].emit(
                     'paired',
                     {
                         roomName,
+                        peerTopic: socketDict[socketId1],
                     }
                 )
                 delete socketDict[socketId1];
