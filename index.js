@@ -37,9 +37,8 @@ io.on('connection', function(socket){
     socket.on('match', function(data) {
         socket.join('lobby');
         socket.lobbyPairing = true;
-        console.log(data);
         if (typeof data.topic === undefined) return;
-        if (data.topic.length) return;
+        if (!data.topic.length) return;
         // If someone is waiting
         var socketIds = socketIdsInRoom('lobby');
         for (let sid of socketIds) {
