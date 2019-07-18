@@ -120,6 +120,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('exchange', function(data){
+        console.log(data.type);
         try {
             data.from = socket.id;
             var to = io.sockets.connected[data.to];
