@@ -2,7 +2,7 @@
   "apps": [
     {
       "exec_mode": "fork_mode",
-      "script": "./app.js",
+      "script": "./index.js",
       "name": "socket-0",
       "node_args": [
         "--nouse-idle-notification",
