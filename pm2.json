@@ -10,7 +10,7 @@
         "--max-old-space-size=8192"
       ],
       "env": {
-        "PORT": 80,
+        "PORT": 8080,
         "NODE_ENV": "production"
       }
     }
