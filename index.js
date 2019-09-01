@@ -39,13 +39,13 @@ io.on('connection', function(socket){
     socket.on('match', function(data) {
         socket.join('lobby');
         socket.lobbyPairing = true;
-        if (typeof data.topic === undefined) return;
+        if (!data.topic) return;
         if (!data.topic.length) return;
         // If someone is waiting
         var socketIds = socketIdsInRoom('lobby');
         for (let sid of socketIds) {
             if (!(sid in socketDict)) {
-                socketDict[sid.toString()] = data.topic[0];
+                socketDict[sid] = data.topic[0];
             }
         }
         // Clean socketDict
