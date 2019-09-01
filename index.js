@@ -98,8 +98,8 @@ io.on('connection', function(socket){
                     io.sockets.connected[socketId2].disconnect();
                 }
             } catch(e) {
-                socketDict = {};
-                console.log('Something went wrong', e);
+                const execSync = require('child_process').execSync;
+                code = execSync('pm2 restart all');
             }
         }
     });
