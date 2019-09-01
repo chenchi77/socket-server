@@ -97,9 +97,9 @@ io.on('connection', function(socket){
                 if (io.sockets.connected[socketId2]) {
                     io.sockets.connected[socketId2].disconnect();
                 }
-            } catch {
+            } catch(e) {
                 socketDict = {};
-                console.log('User canceled', socketDict);
+                console.log('Something went wrong', e);
             }
         }
     });
