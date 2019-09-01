@@ -87,6 +87,12 @@ io.on('connection', function(socket){
                 )
                 delete socketDict[socketId1];
                 delete socketDict[socketId2];
+                if (io.sockets.connected[socketId1]) {
+                    io.sockets.connected[socketId1].disconnect();
+                }
+                if (io.sockets.connected[socketId2]) {
+                    io.sockets.connected[socketId2].disconnect();
+                }
             } catch {
                 console.log('User canceled', socketDict);
             }
