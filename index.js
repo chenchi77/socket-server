@@ -30,6 +30,7 @@ io.on('connection', function(socket){
             io.to(room).emit('leave', socket.id);
             socket.leave(room);
         } else if (socket.lobbyPairing) {
+            console.log('deleting because of disconnection: ', socket.id);
             delete socketDict[socket.id];
         }
     });
