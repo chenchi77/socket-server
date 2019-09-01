@@ -32,6 +32,7 @@ io.on('connection', function(socket){
         } else if (socket.lobbyPairing) {
             console.log('deleting because of disconnection: ', socket.id);
             delete socketDict[socket.id];
+            console.log('after cleaning: ', JSON.stringify(socketDict));
         }
     });
 
