@@ -58,8 +58,10 @@ io.on('connection', function(socket){
                 if (availSocketList.length == 2) break;
             }
         }
+        console.log('avail: ', JSON.stringify(availSocketList));
+        console.log('dict: ', socketDict);
         if (availSocketList.length == 2) {
-            const roomName = `room-${new Date().getTime()}`;
+            const roomName = `room-${(new Date()).getTime()}`;
             const socketId1 = availSocketList[0];
             const socketId2 = availSocketList[1];
             if (typeof io.sockets.connected[socketId1] === undefined) {
