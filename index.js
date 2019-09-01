@@ -98,6 +98,7 @@ io.on('connection', function(socket){
                     io.sockets.connected[socketId2].disconnect();
                 }
             } catch {
+                socketDict = {};
                 console.log('User canceled', socketDict);
             }
         }
