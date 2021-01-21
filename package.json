@@ -25,6 +25,6 @@
   "homepage": "https://github.com/chenchi77/socket-server#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   }
 }
